@@ -165,10 +165,9 @@ class WTS_Shortcode {
 		$id = 'wts-slider-' . $instance;
 
 		$style = sprintf(
-			'--wts-accent:%1$s;--wts-text:%2$s;--wts-card-bg:%3$s;--wts-gap:%4$dpx;',
+			'--wts-accent:%1$s;--wts-text:%2$s;--wts-gap:%3$dpx;',
 			esc_attr( $config['accent_color'] ),
 			esc_attr( $config['text_color'] ),
-			esc_attr( $config['card_bg'] ),
 			(int) $config['gap']
 		);
 
@@ -201,21 +200,37 @@ class WTS_Shortcode {
 						$post_id = get_the_ID();
 						?>
 						<div class="wts-slide" role="listitem" data-index="<?php echo esc_attr( $index ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
-							<article class="wts-card">
+							<div class="wts-tile">
 								<?php
 								$role    = get_post_meta( $post_id, '_wts_role', true );
 								$company = get_post_meta( $post_id, '_wts_company', true );
 								$url     = get_post_meta( $post_id, '_wts_url', true );
 								$rating  = (int) get_post_meta( $post_id, '_wts_rating', true );
 								?>
-								<?php if ( (int) $config['show_photo'] ) : ?>
-									<div class="wts-photo">
-										<?php if ( has_post_thumbnail( $post_id ) ) : ?>
-											<?php echo get_the_post_thumbnail( $post_id, 'medium', array( 'class' => 'wts-photo-img', 'alt' => esc_attr( get_the_title() ) ) ); ?>
+								<?php if ( (int) $config['show_photo'] && has_post_thumbnail( $post_id ) ) : ?>
+									<?php echo get_the_post_thumbnail( $post_id, 'large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?>
+								<?php else : ?>
+									<?php echo $this->placeholder_avatar( get_the_title() ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
+								<?php endif; ?>
+							</div>
+
+							<div class="wts-slide-content" hidden>
+								<?php if ( (int) $config['show_quote'] ) : ?>
+									<div class="wts-quote"><?php echo wp_kses_post( wpautop( get_the_content() ) ); ?></div>
+								<?php endif; ?>
+
+								<?php if ( (int) $config['show_name'] ) : ?>
+									<span class="wts-name">
+										<?php if ( $url ) : ?>
+											<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_the_title() ); ?></a>
 										<?php else : ?>
-											<?php echo $this->placeholder_avatar( get_the_title() ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
+											<?php echo esc_html( get_the_title() ); ?>
 										<?php endif; ?>
-									</div>
+									</span>
+								<?php endif; ?>
+
+								<?php if ( (int) $config['show_role'] && ( $role || $company ) ) : ?>
+									<span class="wts-role"><?php echo esc_html( implode( ', ', array_filter( array( $role, $company ) ) ) ); ?></span>
 								<?php endif; ?>
 
 								<?php if ( (int) $config['show_rating'] && $rating > 0 ) : ?>
@@ -227,29 +242,7 @@ class WTS_Shortcode {
 										?>
 									</div>
 								<?php endif; ?>
-
-								<?php if ( (int) $config['show_quote'] ) : ?>
-									<blockquote class="wts-quote"><?php echo wp_kses_post( wpautop( get_the_content() ) ); ?></blockquote>
-								<?php endif; ?>
-
-								<footer class="wts-meta">
-									<?php if ( (int) $config['show_name'] ) : ?>
-										<span class="wts-name">
-											<?php if ( $url ) : ?>
-												<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_the_title() ); ?></a>
-											<?php else : ?>
-												<?php echo esc_html( get_the_title() ); ?>
-											<?php endif; ?>
-										</span>
-									<?php endif; ?>
-
-									<?php if ( (int) $config['show_role'] && ( $role || $company ) ) : ?>
-										<span class="wts-role">
-											<?php echo esc_html( implode( ', ', array_filter( array( $role, $company ) ) ) ); ?>
-										</span>
-									<?php endif; ?>
-								</footer>
-							</article>
+							</div>
 						</div>
 						<?php
 						$index++;
@@ -267,6 +260,8 @@ class WTS_Shortcode {
 					</button>
 				<?php endif; ?>
 			</div>
+
+			<div class="wts-quote-panel" aria-live="polite"></div>
 
 			<?php if ( (int) $config['dots'] ) : ?>
 				<div class="wts-dots" role="tablist" aria-label="<?php esc_attr_e( 'Testimonial navigation', 'wp-testimonial-slider' ); ?>"></div>

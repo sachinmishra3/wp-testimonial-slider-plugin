@@ -4,11 +4,11 @@ Tags: testimonials, slider, carousel, reviews, client feedback
 Requires at least: 5.6
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A responsive testimonial slider with a highlighted active slide, adaptive slide counts and a full settings screen.
+A responsive testimonial slider with a spotlight layout, adaptive slide counts and a full settings screen.
 
 == Description ==
 
@@ -16,8 +16,9 @@ WP Testimonial Slider turns your client feedback into an attractive, responsive 
 
 Features:
 
-* **Highlighted active slide** - the selected testimonial gets an enlarged, full-colour photo, an accent border and a raised card, while the others fade back.
-* **Responsive slide counts** - show 5-6 slides on desktop, 3-4 on tablet and 1-2 on mobile. Every count and breakpoint is configurable.
+* **Spotlight layout** - a row of rounded portrait photo tiles; the active tile is enlarged and centred while the others stay small.
+* **Quote beside the active photo** - the active testimonial's quote, name and role appear to the right of the enlarged tile, and move below the row on tablet and mobile.
+* **Responsive slide counts** - show 5 slides on desktop, 3 on tablet and 1 on mobile. Every count and breakpoint is configurable.
 * **Custom testimonials** - each testimonial has a name, role, company, link, star rating, photo (featured image) and quote.
 * **No build step, no external libraries** - a small vanilla JavaScript slider.
 * **Settings screen** under Testimonials -> Slider Settings.

@@ -2,8 +2,9 @@
 
 A responsive WordPress testimonial slider with a highlighted active slide.
 
-- **Active slide highlight** - the selected testimonial gets a full-colour, enlarged photo, an accent border and a raised card. The others fade back.
-- **Adaptive slide counts** - 5-6 slides on desktop, 3-4 on tablet, 1-2 on mobile. All configurable.
+- **Spotlight layout** - a row of rounded portrait photo tiles, bottom-aligned, where the active tile is enlarged and centred while the others stay small.
+- **Quote beside the active photo** - the active testimonial's quote (with an accent bar), name and role appear to the right of the enlarged tile, in the free space above the shorter tiles. On tablet and mobile the quote moves below the row and spans the full width.
+- **Adaptive slide counts** - 5 on desktop, 3 on tablet, 1 on mobile. All configurable.
 - **Custom content** - name, role, company, link, star rating, photo (featured image) and quote per testimonial.
 - **Zero dependencies** - a small vanilla JavaScript slider; no jQuery or external libraries on the front end.
 - **Settings screen** (Testimonials -> Slider Settings) and a **widget**.
@@ -38,14 +39,14 @@ Every setting can be overridden per shortcode:
 | `autoplay_speed` | 4000    | Delay between slides (ms)                      |
 | `speed`          | 500     | Transition speed (ms)                          |
 | `loop`           | true    | Infinite loop                                  |
-| `arrows`         | true    | Show previous / next arrows                    |
+| `arrows`         | false   | Show previous / next arrows                    |
 | `dots`           | true    | Show pagination dots                           |
-| `center_mode`    | true    | Highlight and centre the active slide          |
+| `center_mode`    | true    | Enlarge and centre the active slide            |
 | `show_photo`     | true    | Show the photo                                 |
 | `show_quote`     | true    | Show the testimonial text                      |
 | `show_name`      | true    | Show the name                                  |
 | `show_role`      | true    | Show role / company                            |
-| `show_rating`    | true    | Show the star rating                           |
+| `show_rating`    | false   | Show the star rating                           |
 | `gap`            | 24      | Space between slides (px)                       |
 | `category`       | -       | Testimonial group slug(s), comma separated     |
 | `orderby`        | menu_order | `menu_order`, `date`, `title`, `rand`, `ID` |
